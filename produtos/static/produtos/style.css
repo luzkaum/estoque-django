@@ -33,7 +33,6 @@ tr:hover{
 .botao_editar {
     display: inline-block;
     color: #fff;
-<<<<<<< HEAD
     padding: 6px 5px;
     border-radius: 6px;
     font-size: 15px;
@@ -58,7 +57,6 @@ tr:hover{
 
 .botao_deletar:hover{
     background-color: red;
-=======
     padding: 6px 10px;
     border-radius: 6px;
     text-decoration: none;
@@ -67,6 +65,5 @@ tr:hover{
 }
 
 .botao_editar:hover {
->>>>>>> 80209da95c96f7485ed17aaf2b867987f3856a55
     transform: scale(1.3);
 }
