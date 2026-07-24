@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-from django.shortcuts import get_object_or_404, render, redirect
-=======
 from django.shortcuts import render, redirect, get_object_or_404
->>>>>>> 80209da95c96f7485ed17aaf2b867987f3856a55
 from .models import Produto
 from .forms import ProdutoForm
 
