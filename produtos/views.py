@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from .models import Produto
 from .forms import ProdutoForm
 
@@ -15,3 +15,21 @@ def criar_produto(request):
     else:
         form = ProdutoForm()
     return render(request, 'produtos/form.html', {'form': form})
+
+def editar_produto(request, pk):
+    produto = get_object_or_404(Produto, pk=pk)
+    if request.method == 'POST':
+        form = ProdutoForm(request.POST, instance=produto)
+        if form.is_valid():
+            form.save()
+            return redirect('listar_produtos')
+    else:
+        form = ProdutoForm(instance=produto)
+    return render(request, 'produtos/form.html', {'form': form})        
+   
+def deletar_produto(request, pk):
+    produto = get_object_or_404(Produto, pk=pk)
+    if request.method == 'POST':
+        produto.delete()
+        return redirect('listar_produtos')
+    return render(request, 'produtos/confirmar_delete.html', {'produto':produto})
