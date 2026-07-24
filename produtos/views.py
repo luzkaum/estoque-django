@@ -14,7 +14,7 @@ def criar_produto(request):
             return redirect('listar_produtos')
     else:
         form = ProdutoForm()
-    return render(request, 'produtos/form.html', {'form': form})
+    return render(request, 'produtos/form.html', {'form': form, 'titulo':'Novo produto'})
 
 def editar_produto(request, pk):
     produto = get_object_or_404(Produto, pk=pk)
@@ -25,7 +25,7 @@ def editar_produto(request, pk):
             return redirect('listar_produtos')
     else:
         form = ProdutoForm(instance=produto)
-    return render(request, 'produtos/form.html', {'form': form})        
+    return render(request, 'produtos/form.html', {'form': form, 'titulo':'Editar produto'})        
    
 def deletar_produto(request, pk):
     produto = get_object_or_404(Produto, pk=pk)
