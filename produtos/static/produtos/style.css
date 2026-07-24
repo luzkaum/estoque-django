@@ -29,3 +29,17 @@ th{
 tr:hover{
     background: #f5f7fa
 }
+
+.botao_editar {
+    display: inline-block;
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 15px;
+    transition: all 0.2s ease;
+}
+
+.botao_editar:hover {
+    transform: scale(1.3);
+}
