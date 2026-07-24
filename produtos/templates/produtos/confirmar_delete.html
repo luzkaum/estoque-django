@@ -14,8 +14,8 @@
     <p>essa ação não podera ser desfeita!</p>
     <form method="post">
         {% csrf_token %}
-        <button type="submit">Sim, apagar</button>
-        <a href="{% url 'listar_produtos' %}">Cancelar</a>
+        <button class="btn btn-perigo" type="submit">Sim, apagar</button>
+        <a class="btn" href="{% url 'listar_produtos' %}">Cancelar</a>
     </form>
 
 

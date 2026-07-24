@@ -12,10 +12,10 @@
     <form method="post">
         {% csrf_token%}
         {{form.as_p}}
-        <button type="submit">Salvar</button>
+        <button type="submit" class="btn">Salvar</button>
     </form>
 
-    <p><a href="{% url 'listar_produtos'%}">← Voltar para a lista</a></p>
+    <p><a class="btn" href="{% url 'listar_produtos'%}">← Voltar para a lista</a></p>
 
 </body>
 </html>
