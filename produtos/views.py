@@ -27,7 +27,7 @@ def editar_produto(request, pk):
         if form.is_valid():
             form.save()
             return redirect('listar_produtos')
-    els
+    else:
         form = ProdutoForm(instance=produto)
     return render(request, 'produtos/form.html', {'form': form})        
    
