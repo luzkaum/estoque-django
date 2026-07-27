@@ -1,13 +1,8 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apagar produto</title>
-    <link rel="stylesheet" href="{% static 'produtos/style.css' %}">
-</head>
-<body>
+{%extends "produtos/base.html"%}
+
+{% block titulo%}Apagar produto{% endblock %}
+
+{% block conteudo %}
     <h1>🗑️ Deletar Produto</h1>
 
     <p>Tem certeza que deseja apagar <strong>{{ produto.nome }}</strong>?</p>
@@ -20,5 +15,4 @@
 
 
 
-</body>
-</html>
+{%endblock%}
