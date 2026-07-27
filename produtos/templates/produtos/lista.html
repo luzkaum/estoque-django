@@ -13,7 +13,7 @@
         <select name="categoria" id="categoria" onchange="this.form.submit()">
             <option value="">Todas</option>
             {% for categoria in categorias %}
-                <option value="{{categoria.id}}" {% if categoria.id|stringformat:"s" == categoria_ativa %}selected{% endif %}>{{categoria.nome}}</option>
+                <option value="{{categoria.id}}" {% if categoria.id|stringformat:"s" == categoria_ativa %}selected{% endif %}>{{categoria.nome}}({{categoria.num_produtos}})</option>
             {% endfor %}
         </select>
     </form>

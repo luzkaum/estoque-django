@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Produto, Categoria
 from .forms import ProdutoForm
+from django.db.models import Count
 
 def listar_produtos(request):
     produtos = Produto.objects.all()
-    categorias= Categoria.objects.all()
+    categorias = Categoria.objects.annotate(num_produtos=Count('produto'))
     categoria_id = request.GET.get('categoria')
     if categoria_id:
         produtos = produtos.filter(categoria_id = categoria_id)
