@@ -1,8 +1,6 @@
 ﻿body{
     font-family:  Arial, sans-serif;
-    max-width: 800px;
-    margin:40px auto;
-    padding: 0 20px;
+    margin: 0;
     color: #222;
 }
 
@@ -85,4 +83,23 @@ tr:hover{
 
 .btn-perigo:hover{
     background: #991b1b;
+}
+
+.topo{
+    background: #1e293b;
+    padding: 14px;
+    margin-bottom: 24px;
+}
+
+.marca{
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+main{
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 24px
 }
