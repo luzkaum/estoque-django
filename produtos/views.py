@@ -1,10 +1,19 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Produto
+from .models import Produto, Categoria
 from .forms import ProdutoForm
 
 def listar_produtos(request):
     produtos = Produto.objects.all()
-    return render(request, 'produtos/lista.html', {'produtos': produtos})
+    categorias= Categoria.objects.all()
+    categoria_id = request.GET.get('categoria')
+    if categoria_id:
+        produtos = produtos.filter(categoria_id = categoria_id)
+    return render(request, 'produtos/lista.html', 
+    {
+        'produtos': produtos,
+        'categorias': categorias,
+        'categoria_ativa':categoria_id
+    })
 
 def criar_produto(request):
     if request.method == 'POST':
