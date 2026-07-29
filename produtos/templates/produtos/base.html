@@ -10,6 +10,17 @@
 <body>
     <header class="topo">
         <a href="{% url 'listar_produtos' %}" class="marca">📦 Estoque</a>
+        <span class="auth">
+            {% if user.is_authenticated %}
+                <span style="color: white;">Olá, {{user.username}}</span>
+                <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                    {%csrf_token%}
+                    <button type="submit" class="btn">Sair</button>
+                </form>
+            {%else%}
+                <a href="{% url 'login' %}" class="btn">Entrar</a>
+            {%endif%}
+        </span>
     </header>
 
     <main>

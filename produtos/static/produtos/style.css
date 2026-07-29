@@ -87,8 +87,11 @@ tr:hover{
 
 .topo{
     background: #1e293b;
-    padding: 14px;
+    padding: 14px 24px;
     margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .marca{
@@ -102,4 +105,11 @@ main{
     max-width: 800px;
     margin: 0 auto;
     padding: 0 24px
+}
+
+auth{
+    color:#fff;
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
