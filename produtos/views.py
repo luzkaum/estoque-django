@@ -4,6 +4,7 @@ from .models import Produto, Categoria
 from .forms import ProdutoForm
 from django.db.models import Count
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
 
 
 def listar_produtos(request):
@@ -49,3 +50,14 @@ def deletar_produto(request, pk):
         produto.delete()
         return redirect('listar_produtos')
     return render(request, 'produtos/confirmar_delete.html', {'produto':produto})
+
+def cadastro(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('listar_produtos')
+    else:
+        form = UserCreationForm()
+    return render(request, 'produtos/cadastro.html',{'form':form})

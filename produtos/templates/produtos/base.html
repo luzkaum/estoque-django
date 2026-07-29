@@ -12,7 +12,7 @@
         <a href="{% url 'listar_produtos' %}" class="marca">📦 Estoque</a>
         <span class="auth">
             {% if user.is_authenticated %}
-                <span style="color: white;">Olá, {{user.username}}</span>
+                Olá, {{user.username}}
                 <form method="post" action="{% url 'logout' %}" style="display: inline;">
                     {%csrf_token%}
                     <button type="submit" class="btn">Sair</button>

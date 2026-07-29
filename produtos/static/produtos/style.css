@@ -107,7 +107,7 @@ main{
     padding: 0 24px
 }
 
-auth{
+.auth{
     color:#fff;
     display: flex;
     align-items: center;
