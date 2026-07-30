@@ -5,7 +5,9 @@
 {% block conteudo %}
 
     <h1>📦Lista de Produtos</h1>
-    <p><a class="btn" href="{%url 'criar_produto'%}">Adicionar Produto</a></p>
+    {%if user.is_staff %}
+        <p><a class="btn" href="{%url 'criar_produto'%}">Adicionar Produto</a></p>
+    {% endif %}
     <form method="get">
         <label for="categoria"><strong>Filtrar por Categoria:</strong></label>
         <select name="categoria" id="categoria" onchange="this.form.submit()">
@@ -22,7 +24,9 @@
                 <th>Preço</th>
                 <th>Estoque</th>
                 <th>Categoria</th>
-                <th>Ações</th>
+                {%if user.is_staff %}
+                    <th>Ações</th>
+                {%endif%}
             </tr>
         </thead>
         <tbody>
@@ -32,14 +36,17 @@
                     <td>R$ {{ produto.preco }}</td>
                     <td>{{ produto.quantidade }}</td>
                     <td>{{produto.categoria|default:"—"}}</td>
-                    <td>
-                        <a class="botao_editar" href="{% url 'editar_produto' produto.pk %}">✏️</a>
-                        <a class="botao_deletar" href="{% url 'deletar_produto' produto.pk%}">🗑️</a>
-                    </td>
+                    {%if user.is_staff %}
+                        <td>
+                            <a class="botao_editar" href="{% url 'editar_produto' produto.pk %}">✏️</a>
+                            <a class="botao_deletar" href="{% url 'deletar_produto' produto.pk%}">🗑️</a>
+                            
+                        </td>
+                    {%endif%}
                 </tr>
             {% empty %}
                 <tr>
-                    <td colspan="5">Nenhum produto cadastrado ainda</td>
+                    <td colspan="{% if user.is_staff %}5{% else %}4{% endif %}">Nenhum produto cadastrado ainda</td>
                 </tr>
             {% endfor %}
         </tbody>

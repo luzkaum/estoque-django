@@ -4,6 +4,7 @@ from .models import Produto, Categoria
 from .forms import ProdutoForm
 from django.db.models import Count
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 
@@ -20,19 +21,19 @@ def listar_produtos(request):
         'categoria_ativa':categoria_id
     })
 
-@login_required
+@staff_member_required
 def criar_produto(request):
     if request.method == 'POST':
         form = ProdutoForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.sucess(request, 'Produto Criado!!')
+            messages.success(request, 'Produto Criado!!')
             return redirect('listar_produtos')
     else:
         form = ProdutoForm()
     return render(request, 'produtos/form.html', {'form': form, 'titulo':'Novo produto'})
 
-@login_required
+@staff_member_required
 def editar_produto(request, pk):
     produto = get_object_or_404(Produto, pk=pk)
     if request.method == 'POST':
@@ -45,7 +46,7 @@ def editar_produto(request, pk):
         form = ProdutoForm(instance=produto)
     return render(request, 'produtos/form.html', {'form': form, 'titulo':'Editar produto'})        
 
-@login_required
+@staff_member_required
 def deletar_produto(request, pk):
     produto = get_object_or_404(Produto, pk=pk)
     if request.method == 'POST':
@@ -60,7 +61,27 @@ def cadastro(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
+            messages.success(request, f'Bem-vindo, {user.username}!')
             return redirect('listar_produtos')
     else:
         form = UserCreationForm()
     return render(request, 'produtos/cadastro.html',{'form':form})
+
+@staff_member_required
+def relatorio(request):
+    produtos = list(Produto.objects.all())
+
+    total_itens = sum(p.quantidade for p in produtos)
+    valor_total = sum(p.preco * p.quantidade for p in produtos)
+    estoque_baixo = [p for p in produtos if p.quantidade < 20]
+
+    if produtos:
+        mais_caro = max(produtos, key=lambda p: p.preco)
+    else:
+        mais_caro = None
+    return render(request, 'produtos/relatorio.html',{
+        'total_itens' : total_itens,
+        'valor_total' : valor_total,
+        'estoque_baixo' : estoque_baixo,
+        'mais_caro': mais_caro,
+    })
