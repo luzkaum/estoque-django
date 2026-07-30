@@ -5,7 +5,7 @@ from .forms import ProdutoForm
 from django.db.models import Count
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-
+from django.contrib import messages
 
 def listar_produtos(request):
     produtos = Produto.objects.all()
@@ -26,6 +26,7 @@ def criar_produto(request):
         form = ProdutoForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.sucess(request, 'Produto Criado!!')
             return redirect('listar_produtos')
     else:
         form = ProdutoForm()
@@ -38,6 +39,7 @@ def editar_produto(request, pk):
         form = ProdutoForm(request.POST, instance=produto)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Produto Atualizado!')
             return redirect('listar_produtos')
     else:
         form = ProdutoForm(instance=produto)
@@ -48,6 +50,7 @@ def deletar_produto(request, pk):
     produto = get_object_or_404(Produto, pk=pk)
     if request.method == 'POST':
         produto.delete()
+        messages.success(request, 'Produto removido.')
         return redirect('listar_produtos')
     return render(request, 'produtos/confirmar_delete.html', {'produto':produto})
 

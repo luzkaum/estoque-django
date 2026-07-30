@@ -5,6 +5,7 @@
 {% block conteudo %}
 
     <h1>📦Lista de Produtos</h1>
+    <p><a class="btn" href="{%url 'criar_produto'%}">Adicionar Produto</a></p>
     <form method="get">
         <label for="categoria"><strong>Filtrar por Categoria:</strong></label>
         <select name="categoria" id="categoria" onchange="this.form.submit()">
