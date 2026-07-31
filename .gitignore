@@ -3,3 +3,5 @@ __pycache__/
 *.pyc
 db.sqlite3
 REVISAO-DJANGO.md
+REVISAO-GERAL.md
+.env

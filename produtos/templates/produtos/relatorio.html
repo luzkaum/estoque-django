@@ -1,0 +1,24 @@
+{% extends "produtos/base.html"%}
+
+{%block titulo%}Relatorio {%endblock%}
+
+{% block conteudo%}
+    <h1>📊Relatorio de Estoque</h1>
+    <p><strong>Total itens em estoque:</strong> {{total_itens}}</p>
+    <p><strong>Valor total do estoque:</strong> R${{valor_total}}</p>
+
+    {%if mais_caro%}
+        <p><strong>Produto mais caro:</strong> {{mais_caro.nome}}R$ {{mais_caro.preco}}</p>
+    {%endif%}
+
+    <h2>
+        Estoque baixo (menos de 20 unidades)
+    </h2>
+    <ul>
+        {%for produto in estoque_baixo%}
+            <li>{{produto.nome}} – {{produto.quantidade}} unidades</li>
+        {%empty%}
+            <li>Nenhum produto com estoque baixo</li>
+        {% endfor %}
+    </ul>
+{%endblock%}
