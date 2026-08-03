@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
+from django.core.paginator import Paginator
 
 def listar_produtos(request):
     produtos = Produto.objects.all()
@@ -14,9 +15,14 @@ def listar_produtos(request):
     categoria_id = request.GET.get('categoria')
     if categoria_id:
         produtos = produtos.filter(categoria_id = categoria_id)
+
+    paginator = Paginator(produtos,3)
+    numero_pagina = request.GET.get('page')
+    pagina = paginator.get_page(numero_pagina)
+
     return render(request, 'produtos/lista.html', 
     {
-        'produtos': produtos,
+        'produtos': pagina,
         'categorias': categorias,
         'categoria_ativa':categoria_id
     })

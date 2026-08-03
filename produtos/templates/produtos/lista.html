@@ -51,5 +51,15 @@
             {% endfor %}
         </tbody>
     </table>
-   
+    {%if produtos.has_other_pages %}
+        <div class="paginacao">
+            {%if produtos.has_previous %}
+                <a  class="btn" href="?page={{produtos.previous_page_number}}{%if categoria_ativa %}&categoria={{ categoria_ativa }}{%endif%}">← Anterior</a>
+            {%endif%}
+            <span>Pagina {{produtos.number}} de {{produtos.paginator.num_pages}}</span>
+            {%if produtos.has_next%}
+                <a class="btn" href="?page={{produtos.next_page_number}}{%if categoria_ativa %}&categoria={{ categoria_ativa }}{%endif%}">Próxima →</a>
+            {%endif%}
+        </div>
+    {%endif%}
 {%endblock%}
