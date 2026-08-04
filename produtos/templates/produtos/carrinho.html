@@ -1,0 +1,40 @@
+{%extends 'produtos/base.html'%}
+
+{%block titulo%} Carrinho {%endblock%}
+
+{%block conteudo%}
+
+    <h1>Meu Carrinho</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Produto</th>
+                <th>Preço</th>
+                <th>quantidade</th>
+                <th>Subtotal</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for item in itens%}
+                <tr>
+                    <td>{{item.produto.nome}}</td>
+                    <td>{{item.produto.preco}}</td>
+                    <td>{{item.quantidade}}</td>
+                    <td>{{item.subtotal}}</td>
+                    <td><a class="btn btn-perigo" href="{% url 'remover_do_carrinho' item.produto.pk %}">Remover</a></td>
+                </tr>
+            {%empty%}
+                <tr>                     
+                    <td colspan="4">Seu carrinho esta vazio.</td>
+                </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+
+    {%if itens%}
+        <p><strong>Total: R$ {{ total }}</strong></p>
+    {%endif%}
+    <p><a class="btn" href="{% url 'listar_produtos' %}">← Continuar comprando</a></p>
+{%endblock%}

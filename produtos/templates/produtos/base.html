@@ -11,6 +11,7 @@
     <header class="topo">
         <a href="{% url 'listar_produtos' %}" class="marca">📦 Estoque</a>
         <span class="auth">
+            <a href="{% url 'ver_carrinho' %}"class='btn'>🛒{{item.quantidade}}</a>
             {% if user.is_authenticated %}
                 Olá, {{user.username}}
                 <form method="post" action="{% url 'logout' %}" style="display: inline;">

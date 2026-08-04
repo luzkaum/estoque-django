@@ -11,4 +11,7 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(),name='logout'),
     path('cadastro/', views.cadastro, name='cadastro'),
     path('relatorio/', views.relatorio, name='relatorio'),
+    path('<int:pk>/carrinho/', views.adicionar_ao_carrinho, name='adicionar_ao_carrinho'),
+    path('carrinho/', views.ver_carrinho, name='ver_carrinho'),
+    path('<int:pk>/remover/', views.remover_do_carrinho, name = 'remover_do_carrinho')
 ]

@@ -91,3 +91,42 @@ def relatorio(request):
         'estoque_baixo' : estoque_baixo,
         'mais_caro': mais_caro,
     })
+
+def adicionar_ao_carrinho(request, pk):
+    produto = get_object_or_404(Produto, pk=pk)
+    carrinho = request.session.get('carrinho', {})
+    
+    chave = str(pk)
+    carrinho[chave] = carrinho.get(chave, 0) + 1
+
+    request.session['carrinho'] = carrinho
+    messages.success(request, f'{produto.nome} adicionado ao carrinho.')
+    return redirect('listar_produtos')
+
+def ver_carrinho(request):
+    carrinho = request.session.get('carrinho',{})
+    itens = []
+    total = 0
+
+    for produto_id, quantidade in carrinho.items():
+        produto = get_object_or_404(Produto, pk=produto_id)
+        subtotal = produto.preco * quantidade
+        total += subtotal
+        itens.append({
+            'produto': produto,
+            'quantidade': quantidade,
+            'subtotal': subtotal
+        })
+
+    return render(request, 'produtos/carrinho.html', {'itens' : itens, 'total' : total})
+
+def remover_do_carrinho(request, pk):
+    produto = get_object_or_404(Produto, pk=pk)
+    carrinho = request.session.get('carrinho',{})
+    chave = str(pk)
+    
+    if chave in carrinho:
+        del carrinho[chave]
+        request.session['carrinho'] = carrinho
+        messages.success(request, f'{produto.nome} removido do carrinho.')
+    return redirect('ver_carrinho')

@@ -24,9 +24,8 @@
                 <th>Preço</th>
                 <th>Estoque</th>
                 <th>Categoria</th>
-                {%if user.is_staff %}
-                    <th>Ações</th>
-                {%endif%}
+                <th>Ações</th>
+              
             </tr>
         </thead>
         <tbody>
@@ -36,17 +35,17 @@
                     <td>R$ {{ produto.preco }}</td>
                     <td>{{ produto.quantidade }}</td>
                     <td>{{produto.categoria|default:"—"}}</td>
-                    {%if user.is_staff %}
-                        <td>
+                    <td>
+                        <a class="botao_editar" href="{% url 'adicionar_ao_carrinho' produto.pk %}">🛒</a>
+                        {%if user.is_staff %}
                             <a class="botao_editar" href="{% url 'editar_produto' produto.pk %}">✏️</a>
                             <a class="botao_deletar" href="{% url 'deletar_produto' produto.pk%}">🗑️</a>
-                            
-                        </td>
-                    {%endif%}
+                        {%endif%}
+                    </td>
                 </tr>
             {% empty %}
                 <tr>
-                    <td colspan="{% if user.is_staff %}5{% else %}4{% endif %}">Nenhum produto cadastrado ainda</td>
+                    <td colspan="5">Nenhum produto cadastrado ainda</td>
                 </tr>
             {% endfor %}
         </tbody>
