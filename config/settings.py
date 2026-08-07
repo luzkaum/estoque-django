@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 import os
+from django.conf.global_settings import DATABASES
 from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -28,6 +29,11 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG') == 'True'
+
+ITENS_POR_PAGINA = int(os.getenv('ITENS_POR_PAGINA', 5))
+
+DEBUG = os.getenv('DEBUG') == 'True'
+
 
 ALLOWED_HOSTS = []
 
@@ -77,12 +83,26 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if os.getenv('POSTGRES_HOST'):
+    DATABASES = {
+        'default':{
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME' : os.getenv('POSTGRES_DB'),
+            'USER' : os.getenv('POSTGRES_USER'),
+            'PASSWORD' : os.getenv('POSTGRES_PASSWORD'),
+            'HOST' : os.getenv('POSTGRES_HOST'),
+            'PORT' : os.getenv('POSTGRES_PORT', '5432')
+
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME' : BASE_DIR / 'db.sqlite3',
+        }
+    }
+
 
 
 # Password validation
